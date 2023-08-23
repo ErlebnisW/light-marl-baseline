@@ -167,7 +167,7 @@ class MAPPO_SMAC:
     def choose_action(self, obs_n, avail_a_n, evaluate):
         with torch.no_grad():
             actor_inputs = []
-            obs_n = torch.tensor(obs_n, dtype=torch.float32)  # obs_n.shape=(N，obs_dim)
+            obs_n = torch.tensor(np.array(obs_n), dtype=torch.float32) # obs_n.shape=(N，obs_dim)
             actor_inputs.append(obs_n)
             if self.add_agent_id:
                 """
@@ -199,7 +199,7 @@ class MAPPO_SMAC:
             s = torch.tensor(s, dtype=torch.float32).unsqueeze(0).repeat(self.N, 1)  # (state_dim,)-->(N,state_dim)
             critic_inputs.append(s)
             if self.use_agent_specific:  # Add local obs of agents
-                critic_inputs.append(torch.tensor(obs_n, dtype=torch.float32))
+                critic_inputs.append(torch.tensor(np.array(obs_n), dtype=torch.float32))
             if self.add_agent_id:  # Add an one-hot vector to represent the agent_id
                 critic_inputs.append(torch.eye(self.N))
             critic_inputs = torch.cat([x for x in critic_inputs], dim=-1)  # critic_input.shape=(N, critic_input_dim)

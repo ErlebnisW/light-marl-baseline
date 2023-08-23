@@ -5,7 +5,7 @@ import argparse
 from normalization import Normalization, RewardScaling
 from replay_buffer import ReplayBuffer
 from mappo_smac import MAPPO_SMAC
-from smac.env import StarCraft2Env
+from smacv2.env import StarCraft2Env
 
 
 class Runner_MAPPO_SMAC:
